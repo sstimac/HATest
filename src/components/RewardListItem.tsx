@@ -51,14 +51,17 @@ const RewardListItem = ({ item, claimed, onCollect }: RewardListItemProps) => {
         <View style={style.titleContainer}>
           <Text numberOfLines={1} style={style.title}>{item.name}</Text>
           {onCollect && (
-            <Pressable disabled={claimed} onPress={handleCollectPress}>
+            <Pressable disabled={claimed} onPress={handleCollectPress} accessibilityRole="button">
               <Animated.View
                 layout={LinearTransition}
                 entering={FadeIn.duration(350)}
                 exiting={FadeOut.duration(350)}
                 key={claimed ? 'claimed' : 'unclaimed'}
               >
-                <FastImage source={claimed ? images.rewardClaimed : images.claimReward} style={style.icon}/>
+                <FastImage
+                  testID={claimed ? 'claimedIcon' : 'unclaimedIcon'}
+                  source={claimed ? images.rewardClaimed : images.claimReward}
+                  style={style.icon}/>
               </Animated.View>
             </Pressable>
           )}
